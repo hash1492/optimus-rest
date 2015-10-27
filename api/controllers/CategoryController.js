@@ -6,6 +6,17 @@
  */
 
 module.exports = {
-	
-};
 
+	getAll: function(req,res) {
+		Category.find({})
+		.then(function(response) {
+			console.log(response);
+			res.send(response);
+		})
+		.fail(function(err) {
+			console.log(err);
+			res.serverError(err)
+		})
+	}
+
+};

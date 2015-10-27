@@ -29,16 +29,6 @@ module.exports = {
     password: {
       type:'string',
       required: true
-    },
-    created_at: {
-      type: 'datetime',
-      required:true,
-      defaultsTo: function() {return new Date();}
-    },
-    updated_at: {
-      type: 'datetime',
-      required:true,
-      defaultsTo: function() {return new Date();}
     }
   },
   beforeCreate: function (values, cb) {
@@ -54,7 +44,6 @@ module.exports = {
     });
   },
   beforeUpdate: function (values, cb) {
-    values.updated = new Date();
     cb();
   }
 };

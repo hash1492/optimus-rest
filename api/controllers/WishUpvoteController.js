@@ -1,21 +1,21 @@
 /**
- * BookmarkController
+ * WishUpvoteController
  *
- * @description :: Server-side logic for managing bookmarks
+ * @description :: Server-side logic for managing wishupvotes
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
 module.exports = {
 
-	toggleWishBookmark: function(req, res) {
-		var bookmark = req.body;
-		console.log(bookmark);
-		Bookmark.findOne(bookmark)
+	toggleWishUpvote: function(req, res) {
+		var wish_upvote = req.body;
+		console.log(wish_upvote);
+		WishUpvote.findOne(wish_upvote)
 		.then(function(response) {
 			console.log(response);
 			// If wish is upvoted by this user, then remove the upvote
 			if(response){
-				Bookmark.destroy(bookmark)
+				WishUpvote.destroy(wish_upvote)
 				.then(function(response) {
 					console.log(response);
 					res.send(response);
@@ -26,7 +26,7 @@ module.exports = {
 			}
 			// If wish is not upvoted by this user, then upvote it
 			else{
-				Bookmark.create(bookmark)
+				WishUpvote.create(wish_upvote)
 				.then(function(response) {
 					console.log(response);
 					res.send(response);
@@ -40,6 +40,5 @@ module.exports = {
 			console.log(err);
 		})
 	}
-
 
 };

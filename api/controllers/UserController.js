@@ -5,6 +5,8 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var bcrypt = require("bcrypt");
+
 module.exports = {
 
 	register: function(req,res) {
@@ -33,17 +35,17 @@ module.exports = {
 							res.send(response);
 						}
 						else{
-							res.serverError("Incorrect password");
+							res.serverError("INCORRECT_PASSWORD");
 						}
 				});
 			}
 			else{
-				res.send(response);
+				res.serverError("INCORRECT_EMAIL");
 			}
 		})
 		.fail(function(err) {
 			console.log(err);
-			res.serverError("User with this email doesn't exist");
+			res.serverError(err);
 		})
 	}
 };

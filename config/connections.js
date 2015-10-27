@@ -58,8 +58,8 @@ module.exports.connections = {
   ***************************************************************************/
   mongolab: {
     adapter: 'sails-mongo',
-    host: 'ds035664.mongolab.com',
-    port: 35664,
+    host: 'ds043714.mongolab.com',
+    port: 43714,
     user: 'optimus_user',
     password: 'optimus_password',
     database: 'optimus_db'
