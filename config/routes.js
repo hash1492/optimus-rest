@@ -39,6 +39,7 @@ module.exports.routes = {
   // User
   'post /user/login' : 'UserController.login',
   'post /user/register' : 'UserController.register',
+  'get /user/logout' : 'UserController.logout',
 
   // Wish
   'post /wish/create': 'WishController.create',
@@ -49,7 +50,7 @@ module.exports.routes = {
   'post /wish/upvoteDownvote/:wish_id/:upvote_downvote': 'WishController.upvoteDownvote',
 
   // Category
-  'get /category/getAll': 'CategoryController.getAll'
+  'get /category/getAll': 'CategoryController.getAll',
 
   // Comment
 

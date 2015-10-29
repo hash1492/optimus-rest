@@ -32,7 +32,20 @@ module.exports = {
 			if(response){
 				bcrypt.compare(user.password, response.password, function(err, passwords_match) {
 						if(passwords_match){
-							res.send(response);
+							var token = jwt.issue(response);
+							response.token = token;
+							var session_obj = {};
+							session_obj.user_id = response.id;
+							session_obj.token = token;
+							session.create(session_obj,function(session_response) {
+								if(session_response){
+									res.send(response);
+								}
+								else{
+									res.serverError("Error creating session");
+								}
+							})
+
 						}
 						else{
 							res.serverError("INCORRECT_PASSWORD");
@@ -46,6 +59,20 @@ module.exports = {
 		.fail(function(err) {
 			console.log(err);
 			res.serverError(err);
+		})
+	},
+
+	logout: function(req,res) {
+
+		var obj = jwt.verify(req.headers.authorization);
+		console.log(obj);
+		session.destroy({user_id: obj.id},function(err, response) {
+			if(err){
+				console.log(err);
+				return;
+			}
+			console.log(response);
+			res.send(response);
 		})
 	}
 };
