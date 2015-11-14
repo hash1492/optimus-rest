@@ -43,6 +43,14 @@ module.exports = {
       type:'json',
       required: false
     },
+    upvotes: {
+      type: 'integer',
+      required: true
+    },
+    downvotes: {
+      type: 'integer',
+      required: true
+    }
   },
   beforeCreate: function (values, cb) {
     values.id = uuid.v4();

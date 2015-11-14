@@ -55,10 +55,10 @@ module.exports.routes = {
   'get /comment/getAll/:wish_id': 'CommentController.getAll',
 
   // Upvote
-  'get /upvote/toggleWishUpvote/:wish_id': 'WishUpvoteController.toggleWishUpvote',
+  'get /upvote/toggleWishUpvote/:wish_id/:wish_upvotes': 'WishUpvoteController.toggleWishUpvote',
 
   // Downvote
-  'get /downvote/toggleWishDownvote/:wish_id': 'WishDownvoteController.toggleWishDownvote',
+  'get /downvote/toggleWishDownvote/:wish_id/:wish_downvotes': 'WishDownvoteController.toggleWishDownvote',
 
   // Bookmark
   'get /bookmark/toggleWishBookmark/:wish_id': 'BookmarkController.toggleWishBookmark',

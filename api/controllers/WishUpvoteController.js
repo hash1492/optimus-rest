@@ -26,6 +26,7 @@ module.exports = {
 
 		var wish_upvote = {};
 
+		var wish_upvotes = req.param("wish_upvotes");
 		wish_upvote.wish_id = req.param("wish_id");
 		wish_upvote.user_id = req.test_session.user_id;
 
@@ -37,11 +38,14 @@ module.exports = {
 			if(response){
 				WishUpvote.destroy(wish_upvote)
 				.then(function(response) {
-					module.exports.getWishUpvoteCount(wish_upvote.wish_id, function(err, upvote_count) {
-						if(err){
-							res.serverError(err)
-						}
-						res.send(upvote_count);
+					Wish.update({id: wish_upvote.wish_id},{upvotes: wish_upvotes - 1})
+					.then(function(response) {
+						console.log(response);
+						res.send(response[0]);
+					})
+					.fail(function(err) {
+						console.log(err);
+						res.serverError(err);
 					})
 				})
 				.fail(function(err) {
@@ -53,11 +57,14 @@ module.exports = {
 			else{
 				WishUpvote.create(wish_upvote)
 				.then(function(response) {
-					module.exports.getWishUpvoteCount(wish_upvote.wish_id, function(err, upvote_count) {
-						if(err){
-							res.serverError(err)
-						}
-						res.send(upvote_count);
+					Wish.update({id: wish_upvote.wish_id},{upvotes: wish_upvotes + 1})
+					.then(function(response) {
+						console.log(response);
+						res.send(response[0]);
+					})
+					.fail(function(err) {
+						console.log(err);
+						res.serverError(err);
 					})
 				})
 				.fail(function(err) {

@@ -20,27 +20,31 @@ module.exports = {
 		})
 	},
 
-	// If wish is not downvoted, create a downvote. If wish is downvoted, delete the downvote
+	// If wish is not downvoted, create an downvote. If wish is downvoted, delete the downvote
 	toggleWishDownvote: function(req, res) {
+
 		var wish_downvote = {};
 
+		var wish_downvotes = req.param("wish_downvotes");
 		wish_downvote.wish_id = req.param("wish_id");
 		wish_downvote.user_id = req.test_session.user_id;
 
 		console.log(wish_downvote);
-		WishUpvote.findOne(wish_downvote)
+		WishDownvote.findOne(wish_downvote)
 		.then(function(response) {
 			console.log(response);
-			// If wish is upvoted by this user, then remove the upvote
+			// If wish is downvoted by this user, then remove the downvote
 			if(response){
 				WishDownvote.destroy(wish_downvote)
 				.then(function(response) {
-					// console.log(response);
-					module.exports.getWishDownvoteCount(wish_downvote.wish_id, function(err, downvote_count) {
-						if(err){
-							res.serverError(err)
-						}
-						res.send(downvote_count);
+					Wish.update({id: wish_downvote.wish_id},{downvotes: wish_downvotes - 1})
+					.then(function(response) {
+						console.log(response);
+						res.send(response[0]);
+					})
+					.fail(function(err) {
+						console.log(err);
+						res.serverError(err);
 					})
 				})
 				.fail(function(err) {
@@ -48,15 +52,18 @@ module.exports = {
 					res.serverError(err);
 				})
 			}
-			// If wish is not upvoted by this user, then upvote it
+			// If wish is not downvoted by this user, then downvote it
 			else{
 				WishDownvote.create(wish_downvote)
 				.then(function(response) {
-					module.exports.getWishDownvoteCount(wish_downvote.wish_id, function(err, downvote_count) {
-						if(err){
-							res.serverError(err)
-						}
-						res.send(downvote_count);
+					Wish.update({id: wish_downvote.wish_id},{downvotes: wish_downvotes + 1})
+					.then(function(response) {
+						console.log(response);
+						res.send(response[0]);
+					})
+					.fail(function(err) {
+						console.log(err);
+						res.serverError(err);
 					})
 				})
 				.fail(function(err) {
