@@ -8,10 +8,10 @@
 
 // Creates a session
 module.exports.create = function(session, callback) {
-  console.log("Creates a session");
+  // console.log("Creates a session");
   Session.create(session)
   .then(function(response) {
-    console.log(response);
+    // console.log(response);
     callback(true);
   })
   .fail(function(err) {
@@ -24,7 +24,7 @@ module.exports.create = function(session, callback) {
 module.exports.destroy = function(session, callback) {
   Session.destroy(session)
   .then(function(response) {
-    console.log(response);
+    // console.log(response);
     callback(false,response)
   })
   .fail(function(err) {
@@ -33,16 +33,18 @@ module.exports.destroy = function(session, callback) {
   })
 };
 
+
+// Get session by user_id
 module.exports.get = function(session, callback) {
-  console.log("get a session");
-  Session.findOne({user_id: session.id})
+  // console.log("get a session");
+  Session.findOne({user_id: session.user_id})
   .then(function(response) {
-    console.log(response);
+    // console.log(response);
     if(response){
       callback(false,response);
     }
     else{
-      callback("session doesn't exist",false);
+      callback(true,false);
     }
   })
   .fail(function(err) {

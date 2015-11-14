@@ -9,8 +9,23 @@ module.exports = {
 
 	create: function(req,res){
 		var comment = req.body;
-
+		comment.user_id = req.test_session.user_id;
+		console.log(comment);
 		Comment.create(comment)
+		.then(function(response) {
+			console.log(response);
+			res.send(response);
+		})
+		.fail(function(err) {
+			console.log(err);
+			res.serverError(err)
+		})
+	},
+
+	getAll: function(req,res){
+		var wish_id = req.param("wish_id");
+
+		Comment.find({wish_id:wish_id})
 		.then(function(response) {
 			console.log(response);
 			res.send(response);

@@ -12,19 +12,21 @@ module.exports = function (req, res, next) {
     token = req.headers.authorization;
 
     var user = jwt.verify(token);
-    console.log("user");
-    console.log(user);
 
-    var session_obj = {};
-    session_obj.user_id = user.id;
-    session_obj.user_id = user.id;
-    session.get(session_obj, function(err, session_response) {
-      if(err){
-        res.forbidden("Session doesn't exist");
-      }
-      console.log(session_response);
-      next();
-    });
+    if(user){
+      var session_obj = {};
+      session_obj.user_id = user.id;
+      session.get(session_obj, function(err, session_response) {
+        if(err){
+          res.forbidden("Session doesn't exist");
+        }
+        // console.log(session_response);
+        // Set the current session
+        req.test_session = session_response;
+        next();
+      });
+    }
+
 
   } else {
     return res.json(401, {err: 'No Authorization header was found'});

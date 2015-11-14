@@ -8,7 +8,12 @@
 module.exports = {
 
 	toggleWishBookmark: function(req, res) {
-		var bookmark = req.body;
+		var bookmark = {};
+
+		bookmark.wish_id = req.param("wish_id");
+		bookmark.user_id = req.test_session.user_id;
+
+
 		console.log(bookmark);
 		Bookmark.findOne(bookmark)
 		.then(function(response) {
@@ -22,6 +27,7 @@ module.exports = {
 				})
 				.fail(function(err) {
 					console.log(err);
+					res.serverError(err);
 				})
 			}
 			// If wish is not upvoted by this user, then upvote it
@@ -33,11 +39,13 @@ module.exports = {
 				})
 				.fail(function(err) {
 					console.log(err);
+					res.serverError(err);
 				})
 			}
 		})
 		.fail(function(err) {
 			console.log(err);
+			res.serverError(err);
 		})
 	}
 

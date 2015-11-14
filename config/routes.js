@@ -47,22 +47,21 @@ module.exports.routes = {
   'get /wish/getAll': 'WishController.getAll',
   'get /wish/getById/:wish_id': 'WishController.getById',
   'post /wish/update': 'WishController.update',
-  'post /wish/upvoteDownvote/:wish_id/:upvote_downvote': 'WishController.upvoteDownvote',
 
   // Category
   'get /category/getAll': 'CategoryController.getAll',
 
   // Comment
-
+  'get /comment/getAll/:wish_id': 'CommentController.getAll',
 
   // Upvote
-  'get /upvote/toggleWishUpvote': 'WishUpvoteController.toggleWishUpvote',
+  'get /upvote/toggleWishUpvote/:wish_id': 'WishUpvoteController.toggleWishUpvote',
 
   // Downvote
-  'get /downvote/toggleWishDownvote': 'WishDownvoteController.toggleWishDownvote',
+  'get /downvote/toggleWishDownvote/:wish_id': 'WishDownvoteController.toggleWishDownvote',
 
   // Bookmark
-  'get /bookmark/toggleWishBookmark': 'BookmarkController.toggleWishBookmark',
+  'get /bookmark/toggleWishBookmark/:wish_id': 'BookmarkController.toggleWishBookmark',
 
 
 

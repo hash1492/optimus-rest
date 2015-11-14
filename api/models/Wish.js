@@ -15,6 +15,10 @@ module.exports = {
       required: true,
       unique: true
     },
+    user_id: {
+      type:'string',
+      required: true
+    },
     name: {
       type:'string',
       required: true
@@ -30,14 +34,6 @@ module.exports = {
     category: {
       type:'json',
       required: true
-    },
-    upvotes: {
-      type:'integer',
-      required: true,
-    },
-    downvotes: {
-      type:'integer',
-      required: true,
     },
     similar_apps: {
       type:'json',
