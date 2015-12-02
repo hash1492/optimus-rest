@@ -47,6 +47,7 @@ module.exports.routes = {
   'get /wish/getAll': 'WishController.getAll',
   'get /wish/getById/:wish_id': 'WishController.getById',
   'post /wish/update': 'WishController.update',
+  'get /wish/getMyWishlist': 'WishController.getMyWishlist',
 
   // Category
   'get /category/getAll': 'CategoryController.getAll',
@@ -62,6 +63,7 @@ module.exports.routes = {
 
   // Bookmark
   'get /bookmark/toggleWishBookmark/:wish_id': 'BookmarkController.toggleWishBookmark',
+  'get /bookmark/getAll': 'BookmarkController.getAll',
 
 
 

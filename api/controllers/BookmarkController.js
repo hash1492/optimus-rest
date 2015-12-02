@@ -47,6 +47,77 @@ module.exports = {
 			console.log(err);
 			res.serverError(err);
 		})
+	},
+
+
+	getAll: function(req, res) {
+		var user_id = req.test_session.user_id;
+
+		Bookmark.find({user_id: user_id})
+		.then(function(bookmarks) {
+			console.log(bookmarks);
+			if(!bookmarks){
+				res.send([]);
+				return;
+			}
+			var counter = 0;
+			var wishes = [];
+			bookmarks.forEach(function(bookmark) {
+				Wish.findOne({id: bookmark.wish_id})
+				.then(function(wish) {
+					console.log(wish);
+
+					// Determine if wish is upvote/downvoted and bookmarked
+					WishUpvote.findOne({user_id: user_id, wish_id:wish.id})
+					.then(function(wish_upvote) {
+						console.log("wish_upvote");
+						console.log(wish_upvote);
+						if(wish_upvote){
+							wish.is_upvoted = true;
+						}
+						else{
+							wish.is_upvoted = false;
+						}
+
+						WishDownvote.findOne({user_id: user_id, wish_id:wish.id})
+						.then(function(wish_downvote) {
+							if(wish_downvote){
+								wish.is_downvoted = true;
+							}
+							else{
+								wish.is_downvoted = false;
+							}
+
+							wish.is_bookmarked = true;
+
+							wishes.push(wish);
+							counter++;
+
+							res.send(wishes);
+
+						})
+						.fail(function(err) {
+							console.log(err);
+							res.serverError(err);
+						})
+					})
+					.fail(function(err) {
+						console.log(err);
+						res.serverError(err);
+					})
+
+				})
+				.fail(function(err) {
+					console.log(err);
+					res.serverError(err);
+				})
+			})
+
+		})
+		.fail(function(err) {
+			console.log(err);
+			res.serverError(err);
+		})
 	}
 
 
