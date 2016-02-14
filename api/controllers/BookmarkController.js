@@ -7,12 +7,12 @@
 
 module.exports = {
 
+	// Toggle the bookmark of user
 	toggleWishBookmark: function(req, res) {
 		var bookmark = {};
 
 		bookmark.wish_id = req.param("wish_id");
 		bookmark.user_id = req.test_session.user_id;
-
 
 		console.log(bookmark);
 		Bookmark.findOne(bookmark)
@@ -49,7 +49,7 @@ module.exports = {
 		})
 	},
 
-
+	// Get all bookmarks of current user
 	getAll: function(req, res) {
 		var user_id = req.test_session.user_id;
 
