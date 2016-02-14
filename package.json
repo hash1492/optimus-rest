@@ -29,8 +29,7 @@
     "debug": "node debug app.js"
   },
   "engines": {
-    "npm": "1.4.28",
-    "node": "v0.10.37"
+    "npm": "2.1.x"
   },
   "main": "app.js",
   "repository": {
