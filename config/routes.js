@@ -44,10 +44,10 @@ module.exports.routes = {
   // Wish
   'post /wish/create': 'WishController.create',
   'post /wish/update': 'WishController.update',
-  'get /wish/getAll': 'WishController.getAll',
+  'get /wish/getAll/:page_number': 'WishController.getAll',
   'get /wish/getById/:wish_id': 'WishController.getById',
   'post /wish/update': 'WishController.update',
-  'get /wish/getMyWishlist': 'WishController.getMyWishlist',
+  'get /wish/getMyWishlist/:page_number': 'WishController.getMyWishlist',
 
   // Category
   'get /category/getAll': 'CategoryController.getAll',

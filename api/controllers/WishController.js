@@ -7,14 +7,16 @@
 
 module.exports = {
 
+	// Get all the wishes
 	getAll: function(req,res) {
+		var page_number = req.param('page_number');
 		// console.log("test_session ===");
 		// console.log(req.test_session);
 		var user_id = req.test_session.user_id;
 		console.log("user_id");
 		console.log(user_id);
 
-		Wish.find({})
+		Wish.find({ where: {}, sort: 'createdAt DESC', limit: 10, skip: (page_number * 10) })
 		.then(function(wishes) {
 			console.log("wishes");
 			console.log(wishes);
@@ -78,6 +80,7 @@ module.exports = {
 		})
 	},
 
+	// Get wish by id
 	getById: function(req,res) {
 		var wish_id = req.param("wish_id");
 		var user_id = req.test_session.user_id;
@@ -135,11 +138,12 @@ module.exports = {
 		})
 	},
 
+	// Get my wishlist
 	getMyWishlist: function(req,res) {
-
+		var page_number = req.param('page_number');
 		user_id = req.test_session.user_id;
 		console.log(user_id);
-		Wish.find({user_id: user_id})
+		Wish.find({ where:{ user_id: user_id }, limit:10, skip: (page_number * 10)})
 		.then(function(response) {
 			console.log(response);
 			if(!response){
@@ -154,6 +158,7 @@ module.exports = {
 		})
 	},
 
+	// Create a wish
 	create: function(req,res) {
 		var wish = req.body;
 		wish.user_id = req.test_session.user_id;
@@ -169,6 +174,7 @@ module.exports = {
 		})
 	},
 
+	// Update a wish
 	update: function(req, res) {
 		var wish = req.body;
 
