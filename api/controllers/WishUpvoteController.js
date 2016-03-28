@@ -28,7 +28,7 @@ module.exports = {
 
 		var wish_upvotes = req.param("wish_upvotes");
 		wish_upvote.wish_id = req.param("wish_id");
-		wish_upvote.user_id = req.test_session.user_id;
+		wish_upvote.user_id = req.test_session.id;
 
 		console.log(wish_upvote);
 		WishUpvote.findOne(wish_upvote)

@@ -13,18 +13,11 @@ module.exports = function (req, res, next) {
 
     var user = jwt.verify(token);
 
+    // If the user is valid, add its obj to the request session
     if(user){
-      var session_obj = {};
-      session_obj.user_id = user.id;
-      session.get(session_obj, function(err, session_response) {
-        if(err){
-          res.forbidden("Session doesn't exist");
-        }
-        // console.log(session_response);
-        // Set the current session
-        req.test_session = session_response;
-        next();
-      });
+      console.log(user);
+      req.test_session = user;
+      next();
     }
 
 

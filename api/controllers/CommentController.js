@@ -9,7 +9,7 @@ module.exports = {
 
 	create: function(req,res){
 		var comment = req.body;
-		comment.user_id = req.test_session.user_id;
+		comment.user_id = req.test_session.id;
 		console.log(comment);
 		Comment.create(comment)
 		.then(function(response) {
