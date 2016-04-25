@@ -9,7 +9,11 @@ module.exports = {
 
 	create: function(req,res){
 		var comment = req.body;
-		comment.user_id = req.test_session.id;
+		comment.user = {
+			id: req.test_session.id,
+			name: req.test_session.name
+		};
+
 		console.log(comment);
 		Comment.create(comment)
 		.then(function(response) {
@@ -18,8 +22,8 @@ module.exports = {
 		})
 		.fail(function(err) {
 			console.log(err);
-			res.serverError(err)
-		})
+			res.serverError(err);
+		});
 	},
 
 	getAll: function(req,res){
@@ -32,8 +36,8 @@ module.exports = {
 		})
 		.fail(function(err) {
 			console.log(err);
-			res.serverError(err)
-		})
+			res.serverError(err);
+		});
 	}
 
 

@@ -15,8 +15,8 @@ module.exports = {
       required: true,
       unique: true
     },
-    user_id: {
-      type:'string',
+    user: {
+      type:'json',
       required: true
     },
     wish_id: {

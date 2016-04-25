@@ -19,8 +19,8 @@ module.exports = {
 		})
 		.fail(function(err) {
 			console.log(err);
-			res.serverError(err)
-		})
+			res.serverError(err);
+		});
 	},
 
 	login: function(req,res) {
@@ -36,6 +36,7 @@ module.exports = {
 							var token_payload = {};
 							token_payload.id = response.id;
 							token_payload.email = response.email;
+							token_payload.name = response.name;
 
 							// Issue token and send it in response
 							var token = jwt.issue(token_payload);
@@ -56,7 +57,7 @@ module.exports = {
 		.fail(function(err) {
 			console.log(err);
 			res.serverError(err);
-		})
+		});
 	},
 
 };
